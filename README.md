@@ -386,6 +386,33 @@ Ils couvrent :
 - système RAG
 - endpoints API
 
+--
+## Conteneurisation avec Docker 
+
+Le projet a été conteneurisé afin de permettre une exécution simple et reproductible en local.
+
+### Build de l’image
+
+```bash
+docker build -t rag-api .
+```
+### Lancement du conteneur
+
+```bash
+docker run -p 8000:8000 --env-file .env rag-api 
+```
+
+### Accès à l’API
+
+Swagger :
+http://127.0.0.1:8000/docs
+
+Fonctionnement :
+- l’API FastAPI est exposée sur le port 8000
+- les endpoints /ask et /rebuild sont disponibles
+- le système RAG est entièrement opérationnel dans le conteneur
+
+--
 ## Variables d’environnement
 
 Créer un fichier `.env` :
