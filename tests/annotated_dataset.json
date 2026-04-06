@@ -1,0 +1,42 @@
+[
+  {
+    "question": "Quels événements musicaux à Lille ?",
+    "expected_keywords": ["musique", "concert", "lille"]
+  },
+  {
+    "question": "Quels événements ont lieu en mars ?",
+    "expected_keywords": ["mars"]
+  },
+  {
+    "question": "Quels événements ont lieu à l’Aéronef ?",
+    "expected_keywords": ["aéronef"]
+  },
+  {
+    "question": "Quels spectacles pour enfants sont disponibles ?",
+    "expected_keywords": ["enfant", "spectacle"]
+  },
+  {
+    "question": "Quels événements culturels sont prévus à Lille ?",
+    "expected_keywords": ["lille"]
+  },
+  {
+    "question": "Quels concerts ont lieu à Lille ?",
+    "expected_keywords": ["concert", "lille"]
+  },
+  {
+    "question": "Quels événements gratuits à Lille ?",
+    "expected_behavior": "missing_info"
+  },
+  {
+    "question": "Quels événements ont lieu à Paris ?",
+    "expected_behavior": "out_of_scope"
+  },
+  {
+    "question": "Quels événements ont lieu en décembre 2030 ?",
+    "expected_behavior": "out_of_scope"
+  },
+  {
+    "question": "Que faire ce week-end à Lille ?",
+    "expected_keywords": ["lille"]
+  }
+]

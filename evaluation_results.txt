@@ -1,0 +1,6 @@
+===== RÉSULTATS =====
+Total : 10
+Correct : 8
+Partiel : 2
+Incorrect : 0
+Taux de réussite : 80.0%

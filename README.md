@@ -53,13 +53,20 @@ project/
 │   ├── raw/
 │   └── processed/
 │
+├── docs/
+│   ├── iml_architecture_rag.png
+│
 ├── scripts/
 │   ├── fetch_openagenda.py
 │   ├── check_dataset.py
 │   ├── build_vector_index_chunks.py
+│   ├── chatbot_rag.py
+│   ├── evaluate_rag.py
+│   ├── test_mistral.py
 │   └── test_vector_search.py
 │
 ├── tests/
+│   ├── annotated_dataset.json
 │   ├── test_clean_events.py
 │   ├── test_chatbot_rag.py
 │   └── test_api.py
@@ -71,7 +78,9 @@ project/
 │
 ├── api.py
 ├── api_test.py
+├── Dockerfile
 ├── requirements.txt
+├── evaluation_results.txt
 ├── README.md
 ├── test_imports.py
 ├── .env
@@ -86,6 +95,11 @@ Description :
 * tests : tests unitaires
 * requirements.txt : dépendances Python
 * test_imports.py : vérification de l’environnement
+
+
+## Schéma UML de l’architecture du système
+
+![Architecture UML](docs/uml_architecture_rag.png)
 
 ## Étape 2 – Récupération et nettoyage des données OpenAgenda
 
@@ -246,34 +260,38 @@ Fonctionnement :
 - plusieurs questions peuvent être posées sans relancer le script
 - la commande quit permet de quitter le programme
 
-Évaluation du chatbot
+### Évaluation du chatbot
 
-Des tests ont été réalisés pour évaluer la pertinence des réponses.
+Un jeu de test annoté a été construit afin d’évaluer les performances du système.
 
-Questions testées :
+- 10 requêtes couvrant des cas simples, combinés et limites
+- Évaluation basée sur la présence de mots-clés et le comportement attendu
 
-- Quels concerts sont prévus à Lille ?
-- Quels événements gratuits sont disponibles à Lille ?
-- Quels événements ont lieu à l’Aéronef à Lille ?
-- Quels événements ont lieu en mars à Lille ?
-- Y a-t-il des spectacles musicaux à Lille ?
+Un script permet de lancer automatiquement les tests :
 
-Résultats :
+```bash
+python scripts/evaluate_rag.py
+```
+Exemple de résultats 
+- Total : 10
+- Correct : 8
+- Partiel : 2
+- Incorrect : 0
+- Taux de réussite : 80%
 
-4 réponses correctes
-1 réponse partiellement correcte
+Les résultats sont affichés dans le terminal et enregistrés dans evaluation_results.txt.
 
 Analyse :
 
-le chatbot fournit des réponses pertinentes lorsque l’information est présente dans les données
-il évite les hallucinations en indiquant lorsqu’une information est absente
-certaines limites proviennent du dataset (ex : absence d’information sur la gratuité)
+- le chatbot fournit des réponses pertinentes lorsque l’information est présente dans les données
+- il évite les hallucinations en indiquant lorsqu’une information est absente
+- certaines limites proviennent du dataset (ex : absence d’information sur la gratuité)
 
 Points de vigilance :
 
-présence de bruit dans les résultats FAISS (documents non pertinents)
-dépendance à la qualité des données
-importance du chunking et des embeddings pour la pertinence des résultats
+- présence de bruit dans les résultats FAISS (documents non pertinents)
+- dépendance à la qualité des données
+- importance du chunking et des embeddings pour la pertinence des résultats
 
 ---
 ## Étape 5 – API REST avec FastAPI
@@ -385,6 +403,7 @@ Ils couvrent :
 - nettoyage des données
 - système RAG
 - endpoints API
+
 
 --
 ## Conteneurisation avec Docker 
